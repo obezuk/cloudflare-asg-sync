@@ -1,0 +1,23 @@
+service: cloudflare-lb-asg-sync
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: ${opt:stage, 'dev'}
+  environment: ${file(env.yml):${self:provider.stage}}
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "ec2:DescribeInstances"
+         - "autoscaling:DescribeAutoScalingGroups"
+       Resource: "*"
+functions:
+  asg-origin-pool-sync:
+    handler: handler.processAutoscalingEvent
+    events:
+      - cloudwatchEvent:
+          event:
+            source:
+              - "aws.autoscaling"
+            detail-type:
+              - "EC2 Instance Launch Successful"
+              - "EC2 Instance Terminate Successful"
