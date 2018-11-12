@@ -1,4 +1,4 @@
-service: cloudflare-lb-asg-sync
+service: cloudflare-asg-sync
 provider:
   name: aws
   runtime: nodejs8.10
