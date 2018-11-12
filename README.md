@@ -25,6 +25,10 @@ Region A: `serverless deploy --region us-east-1 --stage prod`
 
 Region B: `serverless deploy --region us-west-1 --stage prod`
 
+### IPv6 Support
+
+Cloudflare supports IPv6 out of the box. When an environment variable `ENABLE_IPv6_ORIGINS` is set the Lambda function will prioritize an available IPv6 address over the public IPv4.
+
 # Learn more
 
 https://www.cloudflare.com/load-balancing/
